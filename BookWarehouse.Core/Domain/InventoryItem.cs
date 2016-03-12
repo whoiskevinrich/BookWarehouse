@@ -9,6 +9,7 @@ namespace BookWarehouse.Core.Domain
     public class InventoryItem
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid InventoryItemId { get; set; }
 
         public string Edition { get; set; }
