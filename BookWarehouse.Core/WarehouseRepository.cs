@@ -9,22 +9,21 @@ using BookWarehouse.Core.Infrastructure;
 
 namespace BookWarehouse.Core
 {
-    public class WarehouseRepository<T, TKey> : IRepository<T, TKey>
+    public class WarehouseRepository<T> : IRepository<T>
         where T : class
     {
         private readonly WarehouseContext _context;
         private readonly IDbSet<T> _dbSet;
 
-        public WarehouseRepository(WarehouseContext context, IDbSet<T> dbSet)
+        public WarehouseRepository(WarehouseContext context)
         {
             _context = context;
-            _dbSet = dbSet;
+            _dbSet = context.Set<T>();
         }
 
-        public T Find(TKey key)
+        public T Find(Guid id)
         {
-            if (key == null) throw new ArgumentNullException(nameof(key));
-            return _dbSet.Find(key);
+            return _dbSet.Find(id);
         }
 
         public IEnumerable<T> GetAll()
@@ -65,10 +64,9 @@ namespace BookWarehouse.Core
             _context.SaveChanges();
         }
 
-        public void Remove(TKey key)
+        public void Remove(Guid id)
         {
-            if (key == null) throw new ArgumentNullException(nameof(key));
-            var record = Find(key);
+            var record = Find(id);
             if (record == null) return;
 
             _dbSet.Remove(record);
