@@ -13,10 +13,12 @@ namespace BookWarehouse.Web
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+//            WebApiConfig.Register(GlobalConfiguration.Configuration);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             AutofacConfig.RegisterDependencies();
+
 
             //There is a one-time performance hit when initializing the model,
             // I like taking it right after publish

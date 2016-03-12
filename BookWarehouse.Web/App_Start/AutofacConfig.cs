@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Data.Entity;
+using System.Web.Http;
 using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
@@ -19,12 +20,13 @@ namespace BookWarehouse.Web
         {
             Builder = new ContainerBuilder();
 
-            RegisterWarehouseContext();
-            RegisterRepositoryPatterns();
-            RegisterServicesByConvention();
             RegisterMvcComponents();
             RegisterWebApiComponents();
 
+            RegisterWarehouseContext();
+            RegisterRepositoryPatterns();
+            RegisterServicesByConvention();
+            
             Builder.RegisterFilterProvider();
 
             var container = Builder.Build();
@@ -56,13 +58,13 @@ namespace BookWarehouse.Web
 
         private static void RegisterRepositoryPatterns()
         {
-            Builder.RegisterGeneric(typeof (WarehouseRepository<,>))
-                .As(typeof (IRepository<,>));
+            Builder.RegisterGeneric(typeof (WarehouseRepository<>))
+                .As(typeof (IRepository<>));
         }
 
         private static void RegisterWarehouseContext()
         {
-            Builder.RegisterType<WarehouseContext>().AsSelf().InstancePerDependency();
+            Builder.RegisterType<WarehouseContext>().AsSelf().InstancePerRequest();
         }
     }
 }
