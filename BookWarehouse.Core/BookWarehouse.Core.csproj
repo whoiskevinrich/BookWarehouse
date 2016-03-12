@@ -60,6 +60,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Domain\Warehouse.cs" />
     <Compile Include="Data\WarehouseContext.cs" />
+    <Compile Include="Service\IInventoryItemService.cs" />
+    <Compile Include="Service\ITitleService.cs" />
     <Compile Include="Service\IWarehouseService.cs" />
     <Compile Include="WarehouseRepository.cs" />
   </ItemGroup>
