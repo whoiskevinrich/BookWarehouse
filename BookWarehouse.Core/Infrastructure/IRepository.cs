@@ -5,15 +5,15 @@ using System.Linq.Expressions;
 
 namespace BookWarehouse.Core.Infrastructure
 {
-    public interface IRepository<T, in TKey> 
+    public interface IRepository<T> 
         where T : class
     {
         /// <summary>
         /// Find entity based on key object. This implementation allows for greater flexibility in key types
         /// </summary>
-        /// <param name="key">The identifier of the entity</param>
+        /// <param name="id">The identifier of the entity</param>
         /// <returns></returns>
-        T Find(TKey key);
+        T Find(Guid id);
 
         /// <summary>
         /// Return all entries in the repository
@@ -51,7 +51,7 @@ namespace BookWarehouse.Core.Infrastructure
         /// <summary>
         /// Delete entity from the repository
         /// </summary>
-        /// <param name="key"></param>
-        void Remove(TKey key);
+        /// <param name="id"></param>
+        void Remove(Guid id);
     }
 }
