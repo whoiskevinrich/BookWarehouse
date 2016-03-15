@@ -1,0 +1,53 @@
+﻿@model IEnumerable<BookWarehouse.Web.Models.TitleModel>
+
+@{
+    ViewBag.Title = "Available Titles";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.YearPublished)
+        </th>
+        <th>
+            @Html.DisplayName("On Hand")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Isbn)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.Name, "List", "Inventory", new {id = item.TitleId}, null)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YearPublished)
+            </td>
+            <td>
+                @Html.Action("GetCount", "TitleApi", new {id = item.TitleId})
+                @Html.
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Isbn)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {id = item.TitleId}) |
+                @Html.ActionLink("Details", "Details", new {id = item.TitleId}) |
+                @Html.ActionLink("Delete", "Delete", new {id = item.TitleId})
+            </td>
+        </tr>
+    }
+
+</table>

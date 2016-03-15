@@ -1,9 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Linq;
 using System.Web.Http;
+using BookWarehouse.Core.Domain;
 using BookWarehouse.Core.Service;
 
 namespace BookWarehouse.Web.Controllers.Api
 {
+    /// <summary>
+    /// Manipulation of Warehouse Information
+    /// </summary>
     [RoutePrefix("api/warehouse")]
     public class WarehouseApiController : ApiController
     {
@@ -15,30 +20,63 @@ namespace BookWarehouse.Web.Controllers.Api
         }
 
         // GET: api/Warehouse
-        public IEnumerable<string> Get()
+        /// <summary>
+        /// Get information on all warehouses
+        /// </summary>
+        /// <returns></returns>
+        [Route("")]
+        public IHttpActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            var results = _warehouse.GetAll().ToList();
+            if (!results.Any()) return NotFound();
+            return Ok(results);
         }
 
-        // GET: api/Warehouse/5
-        public string Get(int id)
+        /// <summary>
+        /// Get information about a partiuclar warehouse
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        // GET: api/Warehouse/Guid
+        [Route("{id:Guid}")]
+        public IHttpActionResult Get(Guid id)
         {
-            return "value";
+            var result = _warehouse.Get(id);
+            if (result == null) return NotFound();
+            return Ok(result);
         }
 
         // POST: api/Warehouse
-        public void Post([FromBody]string value)
+        /// <summary>
+        /// Update information on a particular warehouse
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("")]
+        public IHttpActionResult Post([FromBody]Warehouse value)
         {
-        }
-
-        // PUT: api/Warehouse/5
-        public void Put(int id, [FromBody]string value)
-        {
+            if (value == null) return BadRequest("null");
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            _warehouse.Create(value);
+            var result = _warehouse.Find(x => x.Name == value.Name);
+            return Created($"{Request.RequestUri}/{result.WarehouseId}", result);
         }
 
         // DELETE: api/Warehouse/5
-        public void Delete(int id)
+        /// <summary>
+        /// Delete a warehouse
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("{id:Guid}")]
+        public IHttpActionResult Delete(Guid id)
         {
+            var item = _warehouse.Get(id);
+            if (item == null) return NotFound();
+            _warehouse.Delete(id);
+            return Ok(id);
         }
     }
 }

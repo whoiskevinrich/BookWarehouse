@@ -1,0 +1,130 @@
+﻿body {
+  font-size: 13px;
+  font-family: 'Segoe UI WPC', 'Segoe UI', Tahoma, 'Microsoft Sans Serif', Verdana, sans-serif;
+  color: #333333;
+}
+.form-boxshadow {
+  background-color: #f5f5f5;
+  border-top: 1px solid #e5e5e5;
+  box-shadow: 3px 3px 5px 6px #ccc;
+  padding: 30px;
+}
+
+h2 {
+  font-size: 18px;
+}
+h3 {
+  font-size: 16px;
+}
+h4 {
+  font-size: 14px;
+}
+.no-bullets {
+  padding-left: 0;
+}
+.no-bullets ul,
+.no-bullets li {
+  list-style-type: none;
+}
+.no-bullets > li {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e5e5e5;
+}
+.form-actions {
+  padding: 19px 20px 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  /*background-color: #f5f5f5;*/
+  border-top: 1px solid #e5e5e5;
+}
+.form-group .k-dropdown {
+  width: 100%;
+}
+.navbar-fixed-top {
+  min-height: 30px;
+  background: #0072c6;
+}
+.navbar-fixed-top .navbar-brand {
+  font-size: 13px;
+}
+.navbar-fixed-top .navbar-brand img {
+  height: 20px;
+  vertical-align: top;
+  margin-right: 0.3em;
+}
+.navbar-fixed-top .navbar-brand,
+.navbar-fixed-top .navbar-nav > li > a {
+  color: #ffffff;
+  padding: 5px 9px;
+  height: 30px;
+}
+.navbar-fixed-top .navbar-text {
+  color: #ffffff;
+  margin: 5px 9px;
+}
+.navbar-fixed-top .navbar-nav.navbar-right:last-child {
+  margin-right: 0;
+}
+.navbar-fixed-top .navbar-nav .open > a,
+.navbar-fixed-top .navbar-nav .open > a:hover,
+.navbar-fixed-top .navbar-nav .open > a:focus,
+.navbar-fixed-top .navbar-nav > li > a:hover,
+.navbar-fixed-top .navbar-nav > li > a:focus,
+.navbar-fixed-top .navbar-nav .active > a,
+.navbar-fixed-top .navbar-nav .active > a:hover,
+.navbar-fixed-top .navbar-nav .active > a:focus {
+  background-color: #0063ad;
+}
+@media (min-width: 768px) {
+  .navbar-fixed-top .navbar-nav .active > a {
+    background-color: transparent;
+  }
+  .navbar-fixed-top .navbar-nav .active > a,
+  .navbar-fixed-top .navbar-nav .active > a:hover,
+  .navbar-fixed-top .navbar-nav .active > a:focus {
+    position: relative;
+  }
+  .navbar-fixed-top .navbar-nav .active > a:before,
+  .navbar-fixed-top .navbar-nav .active > a:hover:before,
+  .navbar-fixed-top .navbar-nav .active > a:focus:before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    margin-left: -5px;
+    bottom: -1px;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #ffffff;
+  }
+  .navbar-fixed-top .navbar-nav .divider-vertical {
+    height: 20px;
+    margin: 5px 9px;
+    border-right: 1px solid #ffffff;
+    opacity: 0.2;
+  }
+}
+@media (max-width: 767px) {
+  .navbar-fixed-top .navbar-nav.navbar-right:last-child {
+    margin-right: -15px;
+  }
+  .navbar-fixed-top .navbar-nav .open .dropdown-menu > li > a {
+    color: #ffffff;
+  }
+  .navbar-fixed-top .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-fixed-top .navbar-nav .open .dropdown-menu > li > a:focus {
+    background-color: #0063ad;
+  }
+}
+.navbar-fixed-top .navbar-toggle {
+  margin: 0;
+  padding: 7px 9px;
+}
+.navbar-fixed-top .navbar-toggle .icon-bar {
+  width: 20px;
+  background-color: #ffffff;
+}
+/*# sourceMappingURL=Style.css.map */

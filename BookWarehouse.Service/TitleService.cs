@@ -11,10 +11,12 @@ namespace BookWarehouse.Service
     public class TitleService : ITitleService
     {
         private readonly IRepository<Title> _titles;
+        private readonly IInventoryItemService _inventory;
 
-        public TitleService(IRepository<Title> titles)
+        public TitleService(IRepository<Title> titles, IInventoryItemService inventory)
         {
             _titles = titles;
+            _inventory = inventory;
         }
 
         public void Create(Title title)
@@ -54,6 +56,13 @@ namespace BookWarehouse.Service
         {
             if (predicate == null) throw new ArgumentNullException(nameof(predicate));
             return _titles.SearchForMany(predicate);
+        }
+
+        public int OnHand(Guid titleId, Guid? warehouseId = null)
+        {
+            var inventory = _inventory.Where(x => x.TitleId == titleId);
+            if (warehouseId.HasValue) inventory = inventory.Where(x => x.WarehouseId == warehouseId.Value);
+            return inventory.ToList().Count;
         }
     }
 }

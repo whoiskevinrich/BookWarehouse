@@ -15,5 +15,6 @@ namespace BookWarehouse.Core.Service
         IEnumerable<Title> GetAll();
         void Update(Title title);
         IQueryable<Title> Where(Expression<Func<Title, bool>> predicate);
+        int OnHand(Guid titleId, Guid? warehouseId = null);
     }
 }

@@ -1,12 +1,14 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
+using AutoMapper;
 using BookWarehouse.Core;
 using BookWarehouse.Core.Data;
 using BookWarehouse.Core.Infrastructure;
+using BookWarehouse.Core.Service;
 using BookWarehouse.Service;
 using BookWarehouse.Web.Controllers.Api;
 
@@ -26,13 +28,42 @@ namespace BookWarehouse.Web
             RegisterWarehouseContext();
             RegisterRepositoryPatterns();
             RegisterServicesByConvention();
-            
-            Builder.RegisterFilterProvider();
 
+            RegisterAutomapper();
+            RegisterLoggers();
+
+            Builder.RegisterFilterProvider();
+            
             var container = Builder.Build();
 
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            using (var scope = container.BeginLifetimeScope())
+            {
+                var profiles = container.Resolve<IEnumerable<Profile>>();
+                foreach (var profile in profiles)
+                {
+                    Mapper.Initialize(cfg =>
+                    {
+                        cfg.AddProfile(profile);
+                    });
+                }
+            }
+
+                DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
             GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+        }
+
+        private static void RegisterLoggers()
+        {
+            Builder.RegisterAssemblyTypes(typeof (DbLogger).Assembly)
+                .Where(x => x.Name.EndsWith("Logger"))
+                .As<ILogger>();
+        }
+
+        private static void RegisterAutomapper()
+        {
+            Builder.RegisterAssemblyTypes(typeof (AutofacConfig).Assembly)
+                .Where(x => x.IsSubclassOf(typeof (Profile)))
+                .As<Profile>();
         }
 
         private static void RegisterWebApiComponents()

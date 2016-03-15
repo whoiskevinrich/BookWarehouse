@@ -8,5 +8,6 @@ namespace BookWarehouse.Core.Data
         public DbSet<InventoryItem> InventoryItems { get; set; }
         public DbSet<Title> Titles { get; set; }
         public DbSet<Warehouse> Warehouses { get; set; }
+        public DbSet<Log> Logs { get; set; }
     }
 }

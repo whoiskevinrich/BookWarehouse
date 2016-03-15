@@ -22,3 +22,58 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.fullwidth {
+    width: 100%
+}
+
+.border-hidden {
+    border-style: none;
+}
+
+li.k-state-selected {
+    background-color: #0072c6;
+}
+
+div[data-role="listview"] {
+    border: none;
+}
+
+div.div10 {
+    padding-bottom: 10px;
+}
+
+div.div15 {
+    padding-bottom: 15px;
+}
+
+div.div20 {
+    padding-bottom: 20px;
+}
+
+div.div30 {
+    padding-bottom: 30px;
+}
+
+div.div40 {
+    padding-bottom: 40px;
+}
+
+div.div50 {
+    padding-bottom: 50px;
+}
+
+div.alert-btn {
+    text-align: right;
+    line-height: 20px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+.progress-xl {
+    height: 65px;
+}
+
+.k-loading-mask {
+    min-height: 500px;
+}

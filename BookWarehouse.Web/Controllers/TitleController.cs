@@ -10,109 +10,117 @@ using BookWarehouse.Web.Models;
 
 namespace BookWarehouse.Web.Controllers
 {
-    public class WarehouseController : Controller
+    public class TitleController : Controller
     {
         private readonly IWarehouseService _warehouses;
+        private readonly ITitleService _titles;
+        private readonly IInventoryItemService _inventoryItems;
 
-        public WarehouseController(IWarehouseService warehouses)
+        public TitleController(IWarehouseService warehouses, ITitleService titles, IInventoryItemService inventoryItems)
         {
             _warehouses = warehouses;
+            _titles = titles;
+            _inventoryItems = inventoryItems;
         }
 
-        // GET: Warehouse
+        // GET: Title
         public ActionResult Index()
         {
-            var warehouses = _warehouses.GetAll();
-            return View(Mapper.Map<IEnumerable<WarehouseModel>>(warehouses.ToList()));
+            var titles = _titles.GetAll();
+            return View(Mapper.Map<IEnumerable<TitleModel>>(titles.ToList()));
         }
 
-        // GET: Warehouse/Details/5
+        // GET: Title/Details/5
         public ActionResult Details(Guid? id)
         {
             if (!id.HasValue)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var warehouse = _warehouses.Get(id.Value);
-            if (warehouse == null)
+            var title = _titles.Get(id.Value);
+            if (title == null)
             {
                 return HttpNotFound();
             }
-            return View(Mapper.Map<WarehouseModel>(warehouse));
+            return View(title);
         }
 
-        // GET: Warehouse/Create
+        // GET: Title/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Warehouse/Create
+        // POST: Title/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "WarehouseId,Name")] Warehouse warehouse)
+        public ActionResult Create([Bind(Include = "TitleId,Isbn,YearPublished,Name")] Title title)
         {
             if (ModelState.IsValid)
             {
-                _warehouses.Create(new Warehouse
+                _titles.Create(new Title
                 {
-                    Name = warehouse.Name
+                    Name = title.Name,
+                    YearPublished = title.YearPublished,
+                    Isbn = title.Isbn,
                 });
                 return RedirectToAction("Index");
             }
 
-            return View(Mapper.Map<WarehouseModel>(warehouse));
+            return View(title);
         }
 
-        // GET: Warehouse/Edit/5
+        // GET: Title/Edit/5
         public ActionResult Edit(Guid? id)
         {
             if (!id.HasValue)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var warehouse = _warehouses.Get(id.Value);
-            if (warehouse == null)
+            var title = _titles.Get(id.Value);
+            if (title == null)
             {
                 return HttpNotFound();
             }
-            return View(Mapper.Map<WarehouseModel>(warehouse));
+            return View(title);
         }
 
-        // POST: Warehouse/Edit/5
+        // POST: Title/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "WarehouseId,Name")] Warehouse warehouse)
+        public ActionResult Edit([Bind(Include = "TitleId,Isbn,YearPublished,Name")] Title title)
         {
             if (ModelState.IsValid)
             {
-                _warehouses.Update(warehouse);
+                _titles.Update(title);
                 return RedirectToAction("Index");
             }
-            return View(Mapper.Map<WarehouseModel>(warehouse));
+            return View(title);
         }
 
-        // GET: Warehouse/Delete/5
+        // GET: Title/Delete/5
         public ActionResult Delete(Guid? id)
         {
             if (!id.HasValue)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var warehouse = _warehouses.Get(id.Value);
-            if (warehouse == null)
+            var title = _titles.Get(id.Value);
+            if (title == null)
             {
                 return HttpNotFound();
             }
-            return View(warehouse);
+            return View(title);
         }
 
-        // POST: Warehouse/Delete/5
+        // POST: Title/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            _warehouses.Delete(id);
+            _titles.Delete(id);
             return RedirectToAction("Index");
         }
     }
